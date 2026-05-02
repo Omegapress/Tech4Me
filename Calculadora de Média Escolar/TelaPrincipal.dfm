@@ -47,7 +47,6 @@ object frmPrincipal: TfrmPrincipal
     Font.Name = 'Segoe UI Semibold'
     Font.Style = [fsBold]
     ParentFont = False
-    ExplicitTop = 216
     ExplicitWidth = 81
   end
   object lblResultadoTexto: TLabel
@@ -65,7 +64,6 @@ object frmPrincipal: TfrmPrincipal
     Font.Name = 'Segoe UI Semibold'
     Font.Style = [fsBold]
     ParentFont = False
-    ExplicitTop = 275
     ExplicitWidth = 4
   end
   object lblResultadoMedia: TLabel
@@ -135,7 +133,7 @@ object frmPrincipal: TfrmPrincipal
       ParentFont = False
     end
     object btnCalcularMedia: TButton
-      Left = 284
+      Left = 212
       Top = 104
       Width = 133
       Height = 41
@@ -190,6 +188,21 @@ object frmPrincipal: TfrmPrincipal
       ParentFont = False
       TabOrder = 3
       OnExit = Validacao
+    end
+    object Button1: TButton
+      Left = 412
+      Top = 104
+      Width = 133
+      Height = 41
+      Caption = 'Limpar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
+      OnClick = Button1Click
     end
   end
 end
