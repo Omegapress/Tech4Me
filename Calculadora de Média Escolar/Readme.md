@@ -18,6 +18,7 @@ Criar uma aplicação que recebe três notas, calcula a média e informa a situa
 ## ⚠️ Validação
 - Aceita apenas números
 - Notas devem estar entre 0 e 10
+- Todos os campos são obrigatórios.
 
 ## 🛠️ Tecnologias
 - Delphi (VCL)
