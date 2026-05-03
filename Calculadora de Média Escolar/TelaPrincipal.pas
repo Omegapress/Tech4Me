@@ -20,13 +20,14 @@ type
     edtSegundaNota: TEdit;
     edtTerceiraNota: TEdit;
     lblResultadoMedia: TLabel;
-    Button1: TButton;
-    procedure Validacao(Sender: TObject);
-    procedure ObterNotas;
+    btnLimpar: TButton;
     procedure LimparTudo;
+    procedure ObterNotas;
+    procedure ValidacaoValores(Sender: TObject);
     procedure btnCalcularMediaClick(Sender: TObject);
+    procedure btnLimparClick(Sender: TObject);
     function CalcularMedia:double;
-    procedure Button1Click(Sender: TObject);
+    function ValidacaoCampoVazio: Boolean;
   private
     PrimeiraNota, SegundaNota, TerceiraNota : double;
     { Private declarations }
@@ -60,7 +61,61 @@ TerceiraNota := StrToFloatDef(edtTerceiraNota.Text, 0);
 
 end;
 
-procedure TfrmPrincipal.Button1Click(Sender: TObject);
+procedure TfrmPrincipal.ValidacaoValores(Sender: TObject);
+var
+Valor: Double;
+edtValidacao: TEdit;
+begin
+
+edtValidacao := Sender as TEdit;
+
+  if not TryStrToFloat(edtValidacao.Text, Valor) then
+  begin
+    MessageDlg('Valor inválido! Digite um número entre 0 e 10.', mtError, [mbOK], 0);
+    edtValidacao.SetFocus;
+    Exit;
+  end;
+
+  if (Valor < 0) or (Valor > 10) then
+  begin
+    MessageDlg('Valor inválido! Digite um número entre 0 e 10.', mtError, [mbOK], 0);
+    edtValidacao.SetFocus;
+    Exit;
+  end;
+end;
+
+procedure TfrmPrincipal.btnCalcularMediaClick(Sender: TObject);
+begin
+
+ObterNotas;
+
+if ValidacaoCampoVazio then
+begin
+Exit;
+end;
+
+if (CalcularMedia >= 7) then
+begin
+  lblResultadoTexto.Font.Color := clGreen;
+  lblResultadoTexto.Caption := 'Aprovado';
+  lblResultadoMedia.Caption := 'A média das Notas é: ' + FormatFloat('0.00' , CalcularMedia);
+end;
+if (CalcularMedia >= 5) and (CalcularMedia <= 6.99) then
+begin
+  lblResultadoTexto.Font.Color := clOlive;
+  lblResultadoTexto.Caption := 'Recuperação';
+  lblResultadoMedia.Caption := 'A média das Notas é: ' + FormatFloat('0.00' , CalcularMedia);
+end;
+if (CalcularMedia < 5) then
+begin
+  lblResultadoTexto.Font.Color := clMaroon;
+  lblResultadoTexto.Caption := 'Recuperação';
+  lblResultadoMedia.Caption := 'A média das Notas é: ' + FormatFloat('0.00' , CalcularMedia);
+end;
+
+end;
+
+procedure TfrmPrincipal.btnLimparClick(Sender: TObject);
 begin
   LimparTudo;
 end;
@@ -70,49 +125,16 @@ begin
   Result := (PrimeiraNota + SegundaNota + TerceiraNota) / 3;
 end;
 
-procedure TfrmPrincipal.btnCalcularMediaClick(Sender: TObject);
+function TfrmPrincipal.ValidacaoCampoVazio: Boolean;
 begin
 
-ObterNotas;
-
-if CalcularMedia >= 7 then
-begin
-  lblResultadoTexto.Font.Color := clGreen;
-  lblResultadoTexto.Caption := 'Aprovado';
-  lblResultadoMedia.Caption := 'A média das Notas é: ' + FloatToStr(CalcularMedia);
-end;
-if (CalcularMedia > 5) and (CalcularMedia <= 6.9) then
-begin
-  lblResultadoTexto.Font.Color := clOlive;
-  lblResultadoTexto.Caption := 'Recuperação';
-  lblResultadoMedia.Caption := 'A média das Notas é: ' + FloatToStr(CalcularMedia);
-end;
-if CalcularMedia < 5 then
-begin
-  lblResultadoTexto.Font.Color := clMaroon;
-  lblResultadoTexto.Caption := 'Recuperação';
-  lblResultadoMedia.Caption := 'A média das Notas é: ' + FloatToStr(CalcularMedia);
-end;
-
-end;
-
-procedure TfrmPrincipal.Validacao(Sender: TObject);
-var
-Valor: Double;
-
-begin
-  if not TryStrToFloat(edtPrimeiraNota.Text, Valor) then
+  Result := True;
+  if (edtPrimeiraNota.Text = '') or (edtSegundaNota.Text = '') or (edtTerceiraNota.Text = '') then
   begin
-    MessageDlg('Valor inválido! Digite um número entre 0 e 10.', mtError, [mbOK], 0);
-    (Sender as TEdit).SetFocus;
+    MessageDlg('Todos os campos devem ser preenchidos.', mtError, [mbOK], 0);
     Exit;
   end;
-
-  if (Valor < 0) or (Valor > 10) then
-  begin
-    MessageDlg('Valor inválido! Digite um número entre 0 e 10.', mtError, [mbOK], 0);
-    (Sender as TEdit).SetFocus;
-    Exit;
-  end;
+  Result := False;
 end;
+
 end.

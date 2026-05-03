@@ -93,6 +93,7 @@ object frmPrincipal: TfrmPrincipal
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    OnExit = ValidacaoValores
     object lblSegundaNota: TLabel
       Left = 255
       Top = 29
@@ -159,7 +160,7 @@ object frmPrincipal: TfrmPrincipal
       Font.Style = []
       ParentFont = False
       TabOrder = 1
-      OnExit = Validacao
+      OnExit = ValidacaoValores
     end
     object edtSegundaNota: TEdit
       Left = 363
@@ -173,7 +174,7 @@ object frmPrincipal: TfrmPrincipal
       Font.Style = []
       ParentFont = False
       TabOrder = 2
-      OnExit = Validacao
+      OnExit = ValidacaoValores
     end
     object edtTerceiraNota: TEdit
       Left = 588
@@ -187,9 +188,9 @@ object frmPrincipal: TfrmPrincipal
       Font.Style = []
       ParentFont = False
       TabOrder = 3
-      OnExit = Validacao
+      OnExit = ValidacaoValores
     end
-    object Button1: TButton
+    object btnLimpar: TButton
       Left = 412
       Top = 104
       Width = 133
@@ -202,7 +203,7 @@ object frmPrincipal: TfrmPrincipal
       Font.Style = []
       ParentFont = False
       TabOrder = 4
-      OnClick = Button1Click
+      OnClick = btnLimparClick
     end
   end
 end
